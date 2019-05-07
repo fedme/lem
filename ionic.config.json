@@ -1,0 +1,8 @@
+{
+  "name": "verbal-probs",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "753d9079"
+}

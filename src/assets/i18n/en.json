@@ -1,0 +1,35 @@
+{
+  "REGISTRATION": {
+    "TITLE": "Registration",
+    "PARTICIPANT_DATA": "Participant Data",
+    "EXPERIMENT_SETTINGS": "Experiment Settings",
+    "CODE_LABEL": "Code",
+    "GENDER_LABEL": "Gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "AGE_LABEL": "Age",
+    "GRADE_LABEL": "Grade",
+    "SUBMIT": "Begin experiment"
+  },
+  "END": {
+    "END": "End",
+    "WELL_DONE": "Super gemacht!",
+    "WELL_DONE_2": "Du hast es geschafft!",
+    "PLAY_AGAIN": "Play again",
+    "PLAY_AGAIN_CONFIRM": "Play again (press again to confirm)"
+  },
+  "UI": {
+    "NEXT": "Next",
+    "BACK": "Back",
+    "End": "End"
+  },
+  "INTRO": {
+    "TITLE": "Herzlich willkommen, Forscher und Entdecker!",
+    "TITLE_F": "Herzlich willkommen, Forscherin und Entdeckerin!",
+    "TEXT_1": "Erkunde mit uns das Weltall, reise zu verschiedenen Planeten und entdecke die dort lebenden Monster! Begleitet wirst du dabei von deinem treuen Gefährten Robbie, dem Roboter!",
+    "TEXT_2": "Auf jedem Planeten wohnen nette Monster, die sich über deinen  Besuch freuen. Dein Freund Robbie war bereits auf allen Planeten und kennt sich aus! Er weiss alles und sagt immer die Wahrheit!",
+    "TEXT_3": " Deine Aufgabe ist es, auf den verschiedenen Planeten Fragen über die dort lebenden Monster richtig zu beantworten! Robbie hilft dir dabei mit seinem Wissen!",
+    "ROBOT_TEXT": "Hallo, ich bin Robbie!",
+    "NEXT": "Weiter"
+  }
+}
