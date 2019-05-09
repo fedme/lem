@@ -30,21 +30,7 @@ export class LemService implements IExperiment {
   }
 
   setupPracticeAndTest() {
-    // const features = FEATURES.slice();
-    // const planets = PLANETS.slice();
-    // Utils.shuffleArray(features);
-    // Utils.shuffleArray(planets);
-
-    // this.practiceBattery = PracticeBattery.getDefault(
-    //   this.condition.id === 'freq-first',
-    //   features.slice(0, N_PRACTICE),
-    //   planets.slice(0, N_PRACTICE),
-    // );
-
-    // this.testBattery = TestBattery.getDefault(
-    //   features.slice(N_PRACTICE),
-    //   planets.slice(N_PRACTICE)
-    // );
+    this.testBattery = TestBattery.getDefault();
   }
 
   chooseCondition() {

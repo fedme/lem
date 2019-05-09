@@ -1,0 +1,30 @@
+.row {
+    align-items: center;
+}
+
+#stimuli-grid {
+
+    max-width: 650px;
+
+    .target {
+        background: lightgreen;
+    }
+
+    ion-col {
+        padding-top: 0;
+        img {
+            padding: 3px;
+            border: 5px solid gray;
+            margin: 3px;
+            border-radius: 10%;
+            background: white;
+            cursor: pointer;
+        }
+    }
+}
+
+img.check {
+    display: block;
+    max-width: 70px;
+    margin: auto;
+  }

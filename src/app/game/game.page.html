@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+    <ion-buttons slot="end">
+      <button *ngIf="mode == 0 && !revealedTarget" ion-button outline (click)="revealTarget()">
+        {{'STIMULI.REVEAL_TARGET' | translate}}
+      </button>
+      <button *ngIf="mode == 0 && revealedTarget" ion-button outline color="danger" (click)="unrevealTarget()">
+        {{'STIMULI.UNREVEAL_TARGET' | translate}}
+      </button>
+      <ion-button (click)="next()">{{'UI.NEXT' | translate}}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+
+  <!-- <ion-row justify-content-center align-items-start> -->
+
+  <ion-grid id="stimuli-grid">
+    <ion-row>
+      <ion-col *ngFor="let stim of lem.testBattery.currentRound.set.targets | slice:0:4">
+        <img src="assets/img/set_{{lem.testBattery.currentRound.set.id}}/targets/{{stim.id}}.png" 
+          (click)="stimClicked(stim)" [style.border-color]="stim.borderColor"
+          [class.target]="revealedTarget && stim.isTarget" alt="">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngFor="let stim of lem.testBattery.currentRound.set.targets | slice:4:8">
+          <img src="assets/img/set_{{lem.testBattery.currentRound.set.id}}/targets/{{stim.id}}.png" 
+          (click)="stimClicked(stim)" [style.border-color]="stim.borderColor"
+          [class.target]="revealedTarget && stim.isTarget" alt="">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,55 +1,84 @@
 import { Utils } from '../common/utils';
 
-export const ALL_CONDITIONS = [
-   {
-       id: 0,
-       rounds: [
-           { set: 0, active: true },
-           { set: 1, active: false },
-           { set: 2, active: true },
-           { set: 3, active: false }
-       ]
-   }
-];
+export class Stim {
+    id: string;
+    excluded: boolean = false;
+    isTarget: boolean = false;
+
+    exclusionOrder: number;
+    exclusionMode: number;
+    queryNumber: number;
+    questionNumber: number;
+    guessNumber: number;
+  
+    constructor(id) {
+      this.id = id;
+    }
+  
+    exclude(exclusionOrder: number, exclusionMode: number, questionNumber, guessNumber, queryNumber) {
+      this.excluded = true;
+      this.exclusionOrder = exclusionOrder;
+      this.exclusionMode = exclusionMode;
+      this.questionNumber = questionNumber;
+      this.guessNumber = guessNumber;
+      this.queryNumber = queryNumber;
+    }
+
+    cancelExclude() {
+      this.excluded = false;
+      this.exclusionOrder = null;
+      this.exclusionMode = null;
+      this.questionNumber = null;
+      this.guessNumber = null;
+    }
+  
+    get borderColor() {
+      if (this.excluded && !this.isTarget)
+        return 'red';
+      if (this.excluded && this.isTarget)
+        return 'green';
+      return 'gray';
+    }
+}
 
 export class ItemSet {
     id: number;
-    targets: string[];
-    distractors: string[];
+    targets: Stim[];
+    distractors: Stim[];
 }
 
 export const SETS: ItemSet[] = [
     {
         id: 1,
-        targets: ['Apple1', 'Clownfish1', 'dasiy2', 'Owl2', 'Parrot1', 'Pine2', 'Shark2', 'tulip1'],
+        targets: [new Stim('Apple1'), new Stim('Clownfish1'), new Stim('dasiy2'), new Stim('Owl2'), new Stim('Parrot1'), new Stim('Pine2'), new Stim('Shark2'), new Stim('tulip1')],
         distractors: [
-            'Apple2', 'dasiy1', 'goldfish1', 'oak tree', 'octopus', 'owl1', 'palm tree', 'Parrot2',
-            'Parrot3', 'Pine1', 'robin', 'Rose1', 'Shark3', 'Sunflower2', 'swan', 'tulip2', 'tulip3', 'turtle'
+            new Stim('Apple2'), new Stim('dasiy1'), new Stim('goldfish1'), new Stim('oak tree'), new Stim('octopus'), new Stim('owl1'), new Stim('palm tree'), new Stim('Parrot2'),
+            new Stim('Parrot3'), new Stim('Pine1'), new Stim('robin'), new Stim('Rose1'), new Stim('Shark3'), new Stim('Sunflower2'), new Stim('swan'), new Stim('tulip2'), new Stim('tulip3'), new Stim('turtle')
         ]
     },
     {
         id: 2,
-        targets: ['blueberries', 'boot', 'green_apple', 'jumper', 'raspberry', 'sandal', 'Tshirt', 'yellow_apple'],
+        targets: [new Stim('blueberries'), new Stim('boot'), new Stim('green_apple'), new Stim('jumper'), new Stim('raspberry'), new Stim('sandal'), new Stim('Tshirt'), new Stim('yellow_apple')],
         distractors: [
-            'banana', 'blackberry', 'boot2', 'cardigan', 'cherries', 'coat', 'coconut', 'cranberries', 'dress',
-            'flipflop', 'grapes_purple', 'grapes_yellow', 'orange', 'peach', 'pear', 'sandal2', 'slipper',
-            'sneaker', 'strawberry', 'tanktop'
+            new Stim('banana'), new Stim('blackberry'), new Stim('boot2'), new Stim('cardigan'), new Stim('cherries'), new Stim('coat'), new Stim('coconut'), new Stim('cranberries'), new Stim('dress'),
+            new Stim('flipflop'), new Stim('grapes_purple'), new Stim('grapes_yellow'), new Stim('orange'), new Stim('peach'), new Stim('pear'), new Stim('sandal2'), new Stim('slipper'),
+            new Stim('sneaker'), new Stim('strawberry'), new Stim('tanktop')
         ]
     },
     {
         id: 3,
-        targets: ['aeroplane', 'bus', 'car', 'desk', 'dining table', 'helicopter', 'rocking chair', 'stool'],
+        targets: [new Stim('aeroplane'), new Stim('bus'), new Stim('car'), new Stim('desk'), new Stim('dining table'), new Stim('helicopter'), new Stim('rocking chair'), new Stim('stool')],
         distractors: [
-            'armchair', 'bike', 'car2', 'desk2', 'digger', 'drone', 'hammock', 'hot air balloon', 'hydroplane',
-            'office chair', 'paperplane', 'picnictable', 'pingpong', 'plane2', 'round table', 'stool2', 'truck'
+            new Stim('armchair'), new Stim('bike'), new Stim('car2'), new Stim('desk2'), new Stim('digger'), new Stim('drone'), new Stim('hammock'), new Stim('hot air balloon'), new Stim('hydroplane'),
+            new Stim('office chair'), new Stim('paperplane'), new Stim('picnictable'), new Stim('pingpong'), new Stim('plane2'), new Stim('round table'), new Stim('stool2'), new Stim('truck')
         ]
     },
     {
         id: 4,
-        targets: ['femaleface1', 'femaleface2', 'femaleface3', 'femaleface4', 'maleface1', 'maleface2', 'maleface3', 'maleface4'],
+        targets: [new Stim('femaleface1'), new Stim('femaleface2'), new Stim('femaleface3'), new Stim('femaleface4'), new Stim('maleface1'), new Stim('maleface2'), new Stim('maleface3'), new Stim('maleface4')],
         distractors: [
-            'femaleface10', 'femaleface11', 'femaleface12', 'femaleface5', 'femaleface6', 'femaleface7', 'femaleface8',
-            'femaleface9', 'maleface10', 'maleface11', 'maleface12', 'maleface5', 'maleface6', 'maleface7', 'maleface8', 'maleface9'
+            new Stim('femaleface10'), new Stim('femaleface11'), new Stim('femaleface12'), new Stim('femaleface5'), new Stim('femaleface6'), new Stim('femaleface7'), new Stim('femaleface8'),
+            new Stim('femaleface9'), new Stim('maleface10'), new Stim('maleface11'), new Stim('maleface12'), new Stim('maleface5'), new Stim('maleface6'), new Stim('maleface7'), new Stim('maleface8'), new Stim('maleface9')
         ]
     }
 ];
@@ -64,138 +93,80 @@ export class Condition {
 
     static getAll(): Condition[] {
         return [
-            new Condition('freq-first'),
-            new Condition('prob-first')
+            new Condition('yoked-1'),
+            new Condition('yoked-2'),
+            new Condition('yoked-3'),
         ];
     }
 }
 
-export class PlanetRound {
+export enum GameRoundType {
+    Active,
+    Yoked1,
+    Yoked2,
+    Yoked3
+}
+
+export class GameRound {
 
     id: number;
-    feature: string;
-    term: string;
-    term_type: string;
-    planet: number;
-
-    // feature dependent
-    intro_text_a_b: string;
-    intro_text_b_a: string;
-    feature_label_a: string;
-    feature_label_b: string;
-
-    // feature and term dependent
-    question_text_a: string;
-    question_text_b: string;
-    robot_text: string;
-    slider_text_a: string;
-    slider_text_b: string;
-
-    // What was shown on the left and on the right
-    layoutLeft: string;
-    layoutRight: string;
-
-    // Participant input
-    slider_val: number;
-
-
-    constructor(
-        id: number,
-        feature: string,
-        term: string,
-        planet: number
-    ) {
+    type: GameRoundType;
+    set: ItemSet;
+    
+    constructor(id: number, type: GameRoundType, set: ItemSet) {
         this.id = id;
-        this.feature = feature;
-        this.term = term;
-        this.planet = planet;
-        this.parseProperties();
-    }
-
-    parseProperties() {
-        // gather info dependent on feature
-        // for (const fm of FEATURE_MAPPING.slice()) {
-        //     if (fm.feature === this.feature) {
-        //         this.feature_label_a = fm.feature_label_a;
-        //         this.feature_label_b = fm.feature_label_b;
-        //         this.intro_text_a_b = fm.intro_text_a_b;
-        //         this.intro_text_b_a = fm.intro_text_b_a;
-        //         break;
-        //     }
-        // }
-
-        // // gather info dependent on term and feature
-        // for (const ftm of FEATURE_TERM_MAPPING.slice()) {
-        //     if (ftm.feature === this.feature && ftm.term === this.term) {
-        //         this.term_type = ftm.term_type;
-        //         this.question_text_a = ftm.question_text_a;
-        //         this.question_text_b = ftm.question_text_b;
-        //         this.robot_text = ftm.robot_text;
-        //         this.slider_text_a = ftm.slider_text_a;
-        //         this.slider_text_b = ftm.slider_text_b;
-        //         break;
-        //     }
-        // }
+        this.type = type;
+        this.set = set;
     }
 
     public toString(): string {
-        return 'PlanetRound: ' + this.id + ' [' + this.feature + '] [' + this.term + '] [' + this.planet + ']';
+        return `GameRound ${this.id} (${this.type}) - ${this.set.id}`;
     }
 
-    public equals(obj: PlanetRound): boolean {
-        return this.id === obj.id;
+    public equals(obj: GameRound): boolean {
+        return this.id === obj.id
+            && this.set.id === obj.set.id 
+            && this.type === obj.type;
     }
 
 }
 
 export class TestBattery {
 
-    constructor(planets: PlanetRound[]) {
-        this.planets = planets;
-        this.planetIndex = 0;
+    rounds: GameRound[];
+    roundIndex: number;
+
+    constructor(rounds: GameRound[]) {
+        this.rounds = rounds;
+        this.roundIndex = 0;
     }
 
-    public get currentPlanet(): PlanetRound {
-        if (this.planetIndex >= this.planets.length) { return null; }
-        return this.planets[this.planetIndex];
+    public get currentRound(): GameRound {
+        if (this.roundIndex >= this.rounds.length) { return null; }
+        return this.rounds[this.roundIndex];
     }
-    planets: PlanetRound[];
-    planetIndex: number;
+    
+    public static getDefault(): TestBattery {
 
-    public static getDefault(features: string[], planets: number[]): TestBattery {
+        let rounds: GameRound[] = [];
+        const types = [GameRoundType.Active, GameRoundType.Yoked1, GameRoundType.Yoked2, GameRoundType.Yoked3];
+        Utils.shuffleArray(types);
+        const sets = SETS.slice();
+        Utils.shuffleArray(sets);
+ 
+        for (let i=0; i<4; i++) {
+            rounds.push(new GameRound(i, types[i], sets[i]));
+        }
 
-        // Get terms, features and planets
-        // const freq_terms = TEST_FREQ_TERMS.slice();
-        // const prob_terms = TEST_PROB_TERMS.slice();
-        //const terms = freq_terms.concat(prob_terms);
-        //const features = FEATURES.slice();
-        //const planets = PLANETS.slice();
-
-        // // Randomize their order
-        // Utils.shuffleArray(terms);
-        // Utils.shuffleArray(features);
-        // Utils.shuffleArray(planets);
-
-        // // Create planet rounds
-        // const rounds: PlanetRound[] = [];
-        // for (let i = 0; i < terms.length; i++) {
-        //     rounds.push(
-        //         new PlanetRound(i + 1, features[i], terms[i], planets[i])
-        //     );
-        // }
-
-        // const battery = new TestBattery(rounds);
-        // Utils.shuffleArray(battery.planets);
-        // return battery;
-        return null;
+        return new TestBattery(rounds);
     }
 
-    public isLastPlanet(): boolean {
-        return this.planetIndex >= this.planets.length - 1;
+    public isLastRound(): boolean {
+        return this.roundIndex >= this.rounds.length - 1;
     }
 
-    public nextPlanet() {
-        this.planetIndex++;
+    public nextRound() {
+        this.roundIndex++;
     }
 }
 

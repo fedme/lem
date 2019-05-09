@@ -27,7 +27,7 @@ export class IntroPage implements OnInit {
 
   async next() {
 
-    this.navCtrl.navigateRoot('/practice-intro');
+    this.navCtrl.navigateRoot('/game');
 
   }
 
