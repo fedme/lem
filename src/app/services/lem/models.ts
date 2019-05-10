@@ -6,30 +6,22 @@ export class Stim {
     isTarget: boolean = false;
 
     exclusionOrder: number;
-    exclusionMode: number;
-    queryNumber: number;
     questionNumber: number;
-    guessNumber: number;
   
-    constructor(id) {
+    constructor(id: string) {
       this.id = id;
     }
   
-    exclude(exclusionOrder: number, exclusionMode: number, questionNumber, guessNumber, queryNumber) {
+    exclude(exclusionOrder: number, questionNumber: number) {
       this.excluded = true;
       this.exclusionOrder = exclusionOrder;
-      this.exclusionMode = exclusionMode;
       this.questionNumber = questionNumber;
-      this.guessNumber = guessNumber;
-      this.queryNumber = queryNumber;
     }
 
     cancelExclude() {
       this.excluded = false;
       this.exclusionOrder = null;
-      this.exclusionMode = null;
       this.questionNumber = null;
-      this.guessNumber = null;
     }
   
     get borderColor() {
@@ -38,6 +30,10 @@ export class Stim {
       if (this.excluded && this.isTarget)
         return 'green';
       return 'gray';
+    }
+
+    public equals(obj: Stim): boolean {
+        return this.id === obj.id;
     }
 }
 
@@ -86,37 +82,59 @@ export const SETS: ItemSet[] = [
 export class Condition {
 
     id: string;
+    yokedType: YokedType;
 
-    constructor(id: string) {
+    constructor(id: string, yokedType: YokedType) {
         this.id = id;
+        this.yokedType = yokedType;
     }
 
     static getAll(): Condition[] {
         return [
-            new Condition('yoked-1'),
-            new Condition('yoked-2'),
-            new Condition('yoked-3'),
+            new Condition('yoked-1', YokedType.HS3),
+            new Condition('yoked-2', YokedType.HS8),
+            new Condition('yoked-3', YokedType.CS),
         ];
     }
 }
 
 export enum GameRoundType {
     Active,
-    Yoked1,
-    Yoked2,
-    Yoked3
+    Yoked
+}
+
+export enum YokedType {
+    HS3,
+    HS8,
+    CS
 }
 
 export class GameRound {
 
     id: number;
-    type: GameRoundType;
     set: ItemSet;
+    type: GameRoundType;
+    yokedType: YokedType;
+    yokedStrategy: YokedStrategy; // TODO: create class
     
-    constructor(id: number, type: GameRoundType, set: ItemSet) {
+    constructor(id: number, type: GameRoundType, set: ItemSet, yokedType: YokedType=null) {
         this.id = id;
         this.type = type;
         this.set = set;
+        this.yokedType = yokedType;
+        
+        // choose random target for active round
+        if (type == GameRoundType.Active) {
+            this.set.targets[Math.floor(Math.random() * this.set.targets.length)].isTarget = true;
+        }
+
+        // choose yoked strategy
+        if (type == GameRoundType.Yoked) {
+
+            // TODO: choose randomly bettween yoked strategy 1 or 2
+
+        }
+        
     }
 
     public toString(): string {
@@ -146,17 +164,23 @@ export class TestBattery {
         return this.rounds[this.roundIndex];
     }
     
-    public static getDefault(): TestBattery {
+    public static getDefault(yokedType: YokedType): TestBattery {
 
         let rounds: GameRound[] = [];
-        const types = [GameRoundType.Active, GameRoundType.Yoked1, GameRoundType.Yoked2, GameRoundType.Yoked3];
-        Utils.shuffleArray(types);
         const sets = SETS.slice();
         Utils.shuffleArray(sets);
  
-        for (let i=0; i<4; i++) {
-            rounds.push(new GameRound(i, types[i], sets[i]));
-        }
+        // First active round
+        rounds.push(new GameRound(1, GameRoundType.Active, sets[0]));
+
+        // Second active round
+        rounds.push(new GameRound(2, GameRoundType.Active, sets[1]));
+
+        // First yoked round
+        rounds.push(new GameRound(3, GameRoundType.Yoked, sets[2], yokedType=yokedType));
+
+        // Second yoked round
+        rounds.push(new GameRound(4, GameRoundType.Yoked, sets[3], yokedType=yokedType));
 
         return new TestBattery(rounds);
     }

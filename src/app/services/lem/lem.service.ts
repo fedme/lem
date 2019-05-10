@@ -30,7 +30,7 @@ export class LemService implements IExperiment {
   }
 
   setupPracticeAndTest() {
-    this.testBattery = TestBattery.getDefault();
+    this.testBattery = TestBattery.getDefault(this.condition.yokedType);
   }
 
   chooseCondition() {
@@ -65,7 +65,7 @@ export class LemService implements IExperiment {
 
   setInitialConditions(): number[] {
     // Save an array with 20 possible condition ids to local Storage
-    let ids = Array(10).fill(0).concat(Array(10).fill(1));
+    let ids = Array(10).fill(0).concat(Array(10).fill(1).concat(Array(10).fill(2)));
     ids = Utils.getShuffledCopy(ids);
     localStorage.setItem('isrc-lem-conds', JSON.stringify(ids));
     return ids;

@@ -11,6 +11,8 @@ import { AppService } from '../services/common/app.service';
 })
 export class GamePage implements OnInit {
 
+  exclusionCounter: number = 0;
+  questionCounter: number = 0;
   revealedTarget: boolean = false;
   nextConfirmed: boolean = false;
 
