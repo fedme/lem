@@ -2,8 +2,8 @@ import { Utils } from '../common/utils';
 
 export class Stim {
     id: string;
-    excluded: boolean = false;
-    isTarget: boolean = false;
+    excluded = false;
+    isTarget = false;
 
     exclusionOrder: number;
     questionNumber: number;
@@ -25,10 +25,12 @@ export class Stim {
     }
   
     get borderColor() {
-      if (this.excluded && !this.isTarget)
+      if (this.excluded && !this.isTarget) {
         return 'red';
-      if (this.excluded && this.isTarget)
+      }
+      if (this.excluded && this.isTarget) {
         return 'green';
+      }
       return 'gray';
     }
 
@@ -109,6 +111,10 @@ export enum YokedType {
     CS
 }
 
+export class YokedStrategy {
+    
+}
+
 export class GameRound {
 
     id: number;
@@ -117,7 +123,7 @@ export class GameRound {
     yokedType: YokedType;
     yokedStrategy: YokedStrategy; // TODO: create class
     
-    constructor(id: number, type: GameRoundType, set: ItemSet, yokedType: YokedType=null) {
+    constructor(id: number, type: GameRoundType, set: ItemSet, yokedType: YokedType = null) {
         this.id = id;
         this.type = type;
         this.set = set;
@@ -166,7 +172,7 @@ export class TestBattery {
     
     public static getDefault(yokedType: YokedType): TestBattery {
 
-        let rounds: GameRound[] = [];
+        const rounds: GameRound[] = [];
         const sets = SETS.slice();
         Utils.shuffleArray(sets);
  
@@ -177,10 +183,10 @@ export class TestBattery {
         rounds.push(new GameRound(2, GameRoundType.Active, sets[1]));
 
         // First yoked round
-        rounds.push(new GameRound(3, GameRoundType.Yoked, sets[2], yokedType=yokedType));
+        rounds.push(new GameRound(3, GameRoundType.Yoked, sets[2], yokedType = yokedType));
 
         // Second yoked round
-        rounds.push(new GameRound(4, GameRoundType.Yoked, sets[3], yokedType=yokedType));
+        rounds.push(new GameRound(4, GameRoundType.Yoked, sets[3], yokedType = yokedType));
 
         return new TestBattery(rounds);
     }
